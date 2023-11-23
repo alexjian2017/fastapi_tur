@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+psycopg2
+pydantic
+sqlalchemy
+email-validator
+passlib
+bcrypt
