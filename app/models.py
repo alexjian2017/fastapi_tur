@@ -1,5 +1,6 @@
-from sqlalchemy import TIMESTAMP, Boolean, Column, Integer, String, text
+from sqlalchemy import TIMESTAMP, Boolean, Column, ForeignKey, Integer, String, text
 from .database import Base
+from sqlalchemy.orm import relationship
 
 
 class Post(Base):
@@ -10,6 +11,9 @@ class Post(Base):
     content = Column(String, nullable=False)
     published = Column(Boolean, server_default='TRUE')
     created_at = Column(TIMESTAMP(timezone=True), server_default=text('now()'))
+    owner_id = Column(Integer, ForeignKey(
+        "users.id", ondelete="CASCADE"), nullable=False)
+    owner = relationship("User")
 
 
 class User(Base):
@@ -19,3 +23,11 @@ class User(Base):
     email = Column(String, nullable=False, unique=True)
     password = Column(String, nullable=False)
     created_at = Column(TIMESTAMP(timezone=True), server_default=text('now()'))
+
+
+class Vote(Base):
+    __tablename__ = 'votes'
+    post_id = Column(Integer, ForeignKey(
+        "posts.id", ondelete="CASCADE"), primary_key=True)
+    user_id = Column(Integer, ForeignKey(
+        "users.id", ondelete="CASCADE"), primary_key=True)
