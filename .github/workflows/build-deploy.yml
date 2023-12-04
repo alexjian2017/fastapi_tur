@@ -17,7 +17,7 @@ jobs:
     #   ACCESS_TOKEN_EXPIRE_MINUTES: ${{secrets.ACCESS_TOKEN_EXPIRE_MINUTES}}
     env:
       DATABASE_HOSTNAME: localhost
-      DATABASE_PORT: 5433
+      DATABASE_PORT: 5432
       DATABASE_PASSWORD: 12345678a
       DATABASE_NAME: fastapi
       DATABASE_USERNAME: postgres
@@ -35,7 +35,7 @@ jobs:
           POSTGRES_PASSWORD: 12345678a
           POSTGRES_DB: fastapi_test
         ports:
-          - 5433:5433
+          - 5433:5432
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
